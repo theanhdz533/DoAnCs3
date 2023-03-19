@@ -12,7 +12,10 @@
         android:theme="@style/Theme.ConquerTheExam"
         tools:targetApi="31" >
         <activity
-            android:name=".ActivityOffline"
+            android:name=".offline.ActivityExamPapers"
+            android:exported="false" />
+        <activity
+            android:name=".offline.ActivityOffline"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

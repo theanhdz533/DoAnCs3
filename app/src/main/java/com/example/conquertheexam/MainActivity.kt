@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.conquertheexam.databinding.ActivityMainBinding
+import com.example.conquertheexam.offline.ActivityOffline
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
@@ -15,7 +16,7 @@ class MainActivity : AppCompatActivity() {
 
         // btn offline
         binding.btnTuLuyen.setOnClickListener {
-              val intent = Intent(this,ActivityOffline::class.java)
+              val intent = Intent(this, ActivityOffline::class.java)
              startActivity(intent)
         }
     }

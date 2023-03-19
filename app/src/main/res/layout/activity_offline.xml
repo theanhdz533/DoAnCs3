@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#24387E"
+    android:background="#7842EE"
     android:padding="2dp"
-    tools:context=".ActivityOffline">
+    tools:context=".offline.ActivityOffline">
 
     <ImageView
         android:id="@+id/btnBackHome"
@@ -50,15 +50,11 @@
         android:id="@+id/cardViewHistory"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:layout_marginStart="3dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="3dp"
-        android:layout_marginBottom="3dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="16dp"
         app:cardBackgroundColor="#FBDEFC"
         app:cardCornerRadius="30dp"
-        app:layout_constraintBottom_toTopOf="@+id/cardView"
-        app:layout_constraintEnd_toEndOf="@+id/cardView"
-        app:layout_constraintHorizontal_bias="1.0"
+
         app:layout_constraintStart_toStartOf="@+id/divider"
         app:layout_constraintTop_toTopOf="@+id/divider">
 
@@ -77,28 +73,74 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+
+            android:gravity="center"
 
             android:orientation="horizontal">
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="12dp"
+
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+
+                    android:background="@drawable/math" />
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Tên 1"
+                    android:textSize="25dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="15dp"
-                android:layout_marginTop="35dp"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:background="@drawable/math" />
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Tên 2"
+                    android:textSize="25dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="15dp"
                 android:orientation="vertical">
 
                 <ImageView
                     android:id="@+id/imageView2"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    tools:srcCompat="@tools:sample/avatars" />
+                    android:background="@drawable/math" />
 
                 <TextView
                     android:id="@+id/textView3"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="Tên 1"
+                    android:text="Tên 3"
                     android:textSize="25dp" />
 
             </LinearLayout>
@@ -107,17 +149,305 @@
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView"
-        android:layout_width="match_parent"
-        android:layout_height="440dp"
-        android:layout_marginStart="3dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="3dp"
-        android:layout_marginBottom="3dp"
-        app:cardCornerRadius="30dp"
-        app:layout_constraintBottom_toBottomOf="@+id/cardViewHistory"
-        app:layout_constraintEnd_toEndOf="@+id/cardViewHistory"
-        app:layout_constraintStart_toStartOf="@+id/cardViewHistory"
-        app:layout_constraintTop_toBottomOf="@+id/cardViewHistory" />
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="600dp"
+
+        android:scrollbars="vertical"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardViewHistory">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="3dp"
+            app:cardCornerRadius="30dp"
+            app:layout_constraintBottom_toBottomOf="@+id/cardViewHistory"
+            app:layout_constraintEnd_toEndOf="@+id/cardViewHistory"
+            app:layout_constraintStart_toStartOf="@+id/cardViewHistory"
+            app:layout_constraintTop_toBottomOf="@+id/cardViewHistory">
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/btnToan"
+                        android:layout_width="90dp"
+                        android:layout_height="80dp"
+                        android:layout_marginLeft="6dp"
+                        android:layout_marginRight="8dp"
+
+                        android:background="@drawable/toan2" />
+
+                    <View
+                        android:id="@+id/divider2"
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="?android:attr/listDivider" />
+
+                    <ImageView
+                        android:id="@+id/btnVatLi"
+                        android:layout_width="105dp"
+                        android:layout_height="100dp"
+                        android:background="@drawable/li" />
+
+                    <View
+                        android:id="@+id/divider3"
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="?android:attr/listDivider" />
+
+                    <ImageView
+                        android:id="@+id/btnHoaHoc"
+                        android:layout_width="90dp"
+                        android:layout_height="80dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
+                        android:background="@drawable/hoa3" />
+
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/textView8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:gravity="center"
+                        android:text="Toán"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
+
+                    <View
+
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="?android:attr/listDivider" />
+
+                    <TextView
+                        android:id="@+id/textView9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:gravity="center"
+                        android:text="Vật Lí"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
+
+                    <View
+                        android:id="@+id/divider6"
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="?android:attr/listDivider" />
+
+                    <TextView
+                        android:id="@+id/textView10"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:gravity="center"
+                        android:text="Hóa Học"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
+                </TableRow>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="?android:attr/listDivider" />
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/btnSu"
+                        android:layout_width="95dp"
+                        android:layout_height="95dp"
+                        android:layout_marginRight="8dp"
+                        android:background="@drawable/su2" />
+
+                    <View
+                        android:id="@+id/divider9"
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="?android:attr/listDivider" />
+
+                    <ImageView
+                        android:id="@+id/btnDia"
+                        android:layout_width="105dp"
+                        android:layout_height="100dp"
+                        android:background="@drawable/diali" />
+
+                    <View
+                        android:id="@+id/divider10"
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="?android:attr/listDivider" />
+
+                    <ImageView
+                        android:id="@+id/btnGDCD"
+                        android:layout_marginTop="4dp"
+                        android:layout_width="105dp"
+                        android:layout_height="100dp"
+                        android:layout_marginLeft="8dp"
+                        android:background="@drawable/gdcd" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/txtSu"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:gravity="center"
+                        android:text="Lịch Sử"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
+
+                    <View
+
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="?android:attr/listDivider" />
+
+                    <TextView
+                        android:id="@+id/txtDia"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:gravity="center"
+                        android:text="Địa Lí"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="?android:attr/listDivider" />
+
+                    <TextView
+                        android:id="@+id/txtGDCD"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:gravity="center"
+                        android:text="CDCD"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
+                </TableRow>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="?android:attr/listDivider" />
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/btnSinh"
+                        android:layout_width="105dp"
+                        android:layout_height="90dp"
+                        android:background="@drawable/sinhhoc" />
+
+                    <View
+
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="?android:attr/listDivider" />
+
+                    <ImageView
+                        android:id="@+id/btnAnh"
+                        android:layout_width="90dp"
+                        android:layout_height="85dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="@drawable/tienganh" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="?android:attr/listDivider" />
+
+                    <ImageView
+                        android:id="@+id/btnMore"
+                        android:layout_width="105dp"
+                        android:layout_height="100dp"
+                        android:background="@drawable/math" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/txtSinh"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:gravity="center"
+                        android:text="Sinh Học"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
+
+                    <View
+
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="?android:attr/listDivider" />
+
+                    <TextView
+                        android:id="@+id/txtAnh"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:gravity="center"
+                        android:text="Tiếng Anh"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="?android:attr/listDivider" />
+
+                    <TextView
+                        android:id="@+id/txtMore"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:gravity="center"
+                        android:text="More"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
+                </TableRow>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="?android:attr/listDivider" />
+            </TableLayout>
+        </androidx.cardview.widget.CardView>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
