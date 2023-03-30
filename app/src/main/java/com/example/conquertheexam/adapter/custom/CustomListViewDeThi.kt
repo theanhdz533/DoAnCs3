@@ -24,8 +24,8 @@ class CustomListViewDeThi(val activity: ActivityExamPapers, val list:List<dataDe
         val soCau = rowList.findViewById<TextView>(R.id.txtSoCau)
         val tinhTrang = rowList.findViewById<TextView>(R.id.txtTinhTrang)
 
-        ten.setText("Mã đề:"+list[position].ten)
-        thoiGian.setText("Thời gian: "+list[position].thoiGian.toString()+" phút")
+        ten.setText("Mã đề:"+list[position].maDe)
+        thoiGian.setText("Thời gian: "+list[position].thoiGian.toString()+" phút ")
         soCau.setText("Số câu: "+ list[position].soCau.toString()+" câu")
         tinhTrang.setText("Tình trạng: "+list[position].tinhTrang)
         return rowList

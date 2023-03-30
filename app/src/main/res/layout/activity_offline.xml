@@ -52,7 +52,7 @@
         android:layout_height="200dp"
         android:layout_marginStart="4dp"
         android:layout_marginTop="16dp"
-        app:cardBackgroundColor="#FBDEFC"
+        app:cardBackgroundColor="#B309EF78"
         app:cardCornerRadius="30dp"
 
         app:layout_constraintStart_toStartOf="@+id/divider"
@@ -98,6 +98,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:textColor="#E040FB"
                     android:text="Tên 1"
                     android:textSize="25dp" />
             </LinearLayout>
@@ -166,6 +167,7 @@
             android:layout_height="100dp"
             android:layout_marginStart="3dp"
             android:layout_marginTop="12dp"
+            android:backgroundTint="@color/white"
             android:layout_marginBottom="3dp"
             app:cardCornerRadius="30dp"
             app:layout_constraintBottom_toBottomOf="@+id/cardViewHistory"
