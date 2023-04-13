@@ -49,7 +49,7 @@ class ActivityExamPapers : AppCompatActivity() {
         for (i in 0..rs.count-1) {
             if (rs.moveToPosition(i)) {
                 listDeThi.add(dataDeThi("Đề "+(i+1),rs.getString(2).toInt()
-                    ,rs.getString(1).toInt(),rs.getString(3),null))
+                    ,rs.getString(1).toInt(),rs.getString(3),rs.getDouble(5)))
             }
         }
 

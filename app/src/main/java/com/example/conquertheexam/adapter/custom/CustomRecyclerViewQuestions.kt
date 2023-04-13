@@ -1,30 +1,19 @@
 package com.example.conquertheexam.adapter.custom
 
 import android.app.Activity
-import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
-import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.LinearLayout
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.conquertheexam.DataAnswer
 import com.example.conquertheexam.R
 import com.example.conquertheexam.adapter.data.dataQuestions
-import com.example.conquertheexam.offline.ActivityQuestions
 import com.example.conquertheexam.offline.ConnectDB
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 
 class CustomRecyclerViewQuestions(val list: List<dataQuestions>) :
     RecyclerView.Adapter<CustomRecyclerViewQuestions.viewHolder>() {
@@ -92,7 +81,7 @@ class CustomRecyclerViewQuestions(val list: List<dataQuestions>) :
             when (checkedId) {
                 R.id.answerA -> {
                     ans.set(position, holder.ansA.text.toString())
-                    data.execSQL("update $table set dapAnChon='${ans[position]}' where cau = '${position+1}' and maDe='$ma_de' ")
+                    data.execSQL("update $table set dapAnChon='${ans[position]}' where cau = '${rs.count-position}' and maDe='$ma_de' ")
                     var nextPosition = (position + 1)
                     val layoutManager =
                         (holder.itemView.parent as RecyclerView).layoutManager as GridLayoutManager
@@ -101,7 +90,7 @@ class CustomRecyclerViewQuestions(val list: List<dataQuestions>) :
 
                 R.id.answerB -> {
                     ans.set(position, holder.ansB.text.toString())
-                    data.execSQL("update $table set dapAnChon='${ans[position]}' where cau = '${position+1}' and maDe='$ma_de' ")
+                    data.execSQL("update $table set dapAnChon='${ans[position]}' where cau = '${rs.count-position}' and maDe='$ma_de' ")
                     var nextPosition = (position + 1)
                     val layoutManager =
                         (holder.itemView.parent as RecyclerView).layoutManager as GridLayoutManager
@@ -109,7 +98,7 @@ class CustomRecyclerViewQuestions(val list: List<dataQuestions>) :
                 }
                 R.id.answerC -> {
                     ans.set(position, holder.ansC.text.toString())
-                    data.execSQL("update $table set dapAnChon='${ans[position]}' where cau = '${position+1}' and maDe='$ma_de' ")
+                    data.execSQL("update $table set dapAnChon='${ans[position]}' where cau = '${rs.count-position}' and maDe='$ma_de' ")
                     var nextPosition = (position + 1)
                     val layoutManager =
                         (holder.itemView.parent as RecyclerView).layoutManager as GridLayoutManager
@@ -117,7 +106,7 @@ class CustomRecyclerViewQuestions(val list: List<dataQuestions>) :
                 }
                 R.id.answerD -> {
                     ans.set(position, holder.ansD.text.toString())
-                    data.execSQL("update $table set dapAnChon='${ans[position]}' where cau = '${position+1}' and maDe='$ma_de' ")
+                    data.execSQL("update $table set dapAnChon='${ans[position]}' where cau = '${rs.count-position}' and maDe='$ma_de' ")
                     var nextPosition = (position + 1)
                     val layoutManager = (holder.itemView.parent as RecyclerView).layoutManager as GridLayoutManager
                     layoutManager.scrollToPosition(nextPosition)

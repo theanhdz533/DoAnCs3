@@ -1,6 +1,7 @@
 package com.example.conquertheexam.offline
 
 import android.content.Intent
+import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.conquertheexam.MainActivity
@@ -9,18 +10,24 @@ import com.example.conquertheexam.databinding.ActivityOfflineBinding
 
 class ActivityOffline : AppCompatActivity() {
     lateinit var binding: ActivityOfflineBinding
+    private lateinit var mediaPlayer: MediaPlayer
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_offline)
         binding = ActivityOfflineBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        // music
+        mediaPlayer = MediaPlayer.create(this, R.raw.music)
+
         binding.btnBackHome.setOnClickListener {
+            mediaPlayer.release()
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
 
         // toan
         binding.btnToan.setOnClickListener {
+            mediaPlayer.release()
             val intent = Intent(this, ActivityExamPapers::class.java)
             if (binding.btnToan.isClickable){
                 intent.putExtra("mon","Toán")
@@ -29,6 +36,7 @@ class ActivityOffline : AppCompatActivity() {
         }
         // toan
         binding.btnToan.setOnClickListener {
+            mediaPlayer.release()
             val intent = Intent(this, ActivityExamPapers::class.java)
             if (binding.btnToan.isClickable){
                 intent.putExtra("mon","Toán")
@@ -38,6 +46,7 @@ class ActivityOffline : AppCompatActivity() {
         }
         // li
         binding.btnVatLi.setOnClickListener {
+            mediaPlayer.release()
             val intent = Intent(this, ActivityExamPapers::class.java)
             if (binding.btnVatLi.isClickable){
                 intent.putExtra("mon","Vật Lí")
@@ -47,6 +56,7 @@ class ActivityOffline : AppCompatActivity() {
         }
         // hoa
         binding.btnHoaHoc.setOnClickListener {
+            mediaPlayer.release()
             val intent = Intent(this, ActivityExamPapers::class.java)
             if (binding.btnHoaHoc.isClickable){
                 intent.putExtra("mon","Hóa Học")
@@ -56,6 +66,7 @@ class ActivityOffline : AppCompatActivity() {
         }
         // su
         binding.btnSu.setOnClickListener {
+            mediaPlayer.release()
             val intent = Intent(this, ActivityExamPapers::class.java)
             if (binding.btnSu.isClickable){
                 intent.putExtra("mon","Lịch Sử")
@@ -65,6 +76,7 @@ class ActivityOffline : AppCompatActivity() {
         }
         // dia
         binding.btnDia.setOnClickListener {
+            mediaPlayer.release()
             val intent = Intent(this, ActivityExamPapers::class.java)
             if (binding.btnDia.isClickable){
                 intent.putExtra("mon","Địa lí")
@@ -74,6 +86,7 @@ class ActivityOffline : AppCompatActivity() {
         }
         // GDCD
         binding.btnGDCD.setOnClickListener {
+            mediaPlayer.release()
             val intent = Intent(this, ActivityExamPapers::class.java)
             if (binding.btnGDCD.isClickable){
                 intent.putExtra("mon","Giáo Dục Công Dân")
@@ -83,6 +96,7 @@ class ActivityOffline : AppCompatActivity() {
         }
         // sinh hoc
         binding.btnSinh.setOnClickListener {
+            mediaPlayer.release()
             val intent = Intent(this, ActivityExamPapers::class.java)
             if (binding.btnSinh.isClickable){
                 intent.putExtra("mon","Sinh Học")
@@ -92,6 +106,7 @@ class ActivityOffline : AppCompatActivity() {
         }
         // tieng anh
         binding.btnAnh.setOnClickListener {
+            mediaPlayer.release()
             val intent = Intent(this, ActivityExamPapers::class.java)
             if (binding.btnAnh.isClickable){
                 intent.putExtra("mon","Tiếng Anh")
@@ -99,6 +114,29 @@ class ActivityOffline : AppCompatActivity() {
             }
             startActivity(intent)
         }
+        // dem nguoc
+        binding.btnClock.setOnClickListener {
+            mediaPlayer.release()
+            val intent = Intent(this,ActivityClock::class.java)
+            startActivity(intent)
+        }
+        // btn music
+
+        binding.btnMusic.setOnClickListener {
+            if (mediaPlayer.isPlaying) {
+                mediaPlayer.pause()
+                binding.btnMusic.text = "Phát nhạc"
+            } else {
+                mediaPlayer.start()
+                binding.btnMusic.text = "Dừng"
+            }
+        }
 
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mediaPlayer.release()
+    }
+
 }

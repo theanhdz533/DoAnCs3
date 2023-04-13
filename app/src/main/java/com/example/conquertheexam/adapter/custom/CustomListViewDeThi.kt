@@ -27,7 +27,10 @@ class CustomListViewDeThi(val activity: ActivityExamPapers, val list:List<dataDe
         ten.setText("Mã đề:"+list[position].maDe)
         thoiGian.setText("Thời gian: "+list[position].thoiGian.toString()+" phút ")
         soCau.setText("Số câu: "+ list[position].soCau.toString()+" câu")
-        tinhTrang.setText("Tình trạng: "+list[position].tinhTrang)
+        if (list[position].diem != null){
+            tinhTrang.setText("Điểm số: "+list[position].diem)
+        }
+
         return rowList
     }
 }
