@@ -48,7 +48,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'
     // fire base
     implementation 'com.google.firebase:firebase-database-ktx:20.0.4'
-    // thu vien circle image
+    // circle image
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     // for adding recyclerview
     implementation 'androidx.recyclerview:recyclerview:1.2.0'
@@ -56,11 +56,12 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.9'
     // auth
     implementation 'com.google.firebase:firebase-auth-ktx:21.0.3'
-
-
-
     // google
     implementation 'com.google.android.gms:play-services-auth:20.5.0'
+    // display image online
+    implementation 'com.github.bumptech.glide:glide:4.12.0'
+    // chat bot
+    implementation("com.squareup.okhttp3:okhttp:4.10.0")
 
 
 

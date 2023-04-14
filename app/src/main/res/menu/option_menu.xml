@@ -6,8 +6,14 @@
        android:icon="@drawable/ic_add_exam"
        />
    <item
+       android:id="@+id/chatBot"
+       android:title="Chat Bot"
+       android:icon="@drawable/ic_chatbot"
+       />
+   <item
        android:id="@+id/signOut"
        android:title="Đăng Xuất"
        android:icon="@drawable/ic_exit"
        />
+
 </menu>

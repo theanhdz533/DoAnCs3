@@ -8,6 +8,7 @@ import com.example.conquertheexam.databinding.ActivityMainBinding
 import com.example.conquertheexam.offline.ActivityOffline
 import com.example.conquertheexam.online.ActivityOnline
 import com.example.conquertheexam.online.model.DataTest
+import com.example.conquertheexam.online.model.DataUser
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -44,39 +45,18 @@ class MainActivity : AppCompatActivity() {
         googleSignInClient = GoogleSignIn.getClient(this,options)
 
         // save data in firebase
-        dbRef = FirebaseDatabase.getInstance().getReference("test")
+        dbRef = FirebaseDatabase.getInstance().getReference("users")
+
 
 
         // btn online
         binding.btnTrucTuyen.setOnClickListener {
-         val id = dbRef.push().key!!
-         val test = DataTest(id,"abc")
-            dbRef.addValueEventListener(object :ValueEventListener{
-                override fun onDataChange(snapshot: DataSnapshot) {
-                     if (snapshot.exists()){
-                         for(data in snapshot.children){
-                                 var dataItem = data.getValue(DataTest::class.java)
-                                 if (test.name==dataItem!!.name){
-                                     Toast.makeText(this@MainActivity,"Data exists!",Toast.LENGTH_SHORT).show()
-                                 }
 
-                         }
-                     }
-                }
-
-                override fun onCancelled(error: DatabaseError) {
-                    TODO("Not yet implemented")
-                }
-            })
-//          dbRef.child(id).setValue(test)
-//              .addOnCompleteListener {
-//                  Toast.makeText(this,"add data success!",Toast.LENGTH_SHORT).show()
-//              }
-
-//            googleSignInClient.signOut().addOnCompleteListener {
-//                val intent = googleSignInClient.signInIntent
-//                startActivityForResult(intent,10001)
-//            }
+            // window infor login
+            googleSignInClient.signOut().addOnCompleteListener {
+                val intent = googleSignInClient.signInIntent
+                startActivityForResult(intent,10001)
+            }
 
         }
     }
@@ -90,6 +70,33 @@ class MainActivity : AppCompatActivity() {
             FirebaseAuth.getInstance().signInWithCredential(credential)
                 .addOnCompleteListener {
                     if (task.isSuccessful){
+                        currentUser = FirebaseAuth.getInstance().currentUser!!
+                        val id = dbRef.push().key!!
+                        val user = DataUser(id,currentUser.displayName.toString(),currentUser.photoUrl.toString(),currentUser.email.toString())
+                        var count : Int = 0
+                        dbRef.addValueEventListener(object :ValueEventListener{
+                            override fun onDataChange(snapshot: DataSnapshot) {
+                                if (snapshot.exists()){
+                                    for(data in snapshot.children){
+                                        var dataItem = data.getValue(DataUser::class.java)
+                                        if (user.email.toString()==dataItem!!.email.toString()){
+                                            count++
+                                        }
+
+                                    }
+                                }
+                                if (count==0){
+                                    dbRef.child(id).setValue(user)
+                                        .addOnCompleteListener {
+                                            Toast.makeText(this@MainActivity,"Đăng kí thành công!",Toast.LENGTH_SHORT).show()
+                                        }
+                                }
+                            }
+
+                            override fun onCancelled(error: DatabaseError) {
+                                TODO("Not yet implemented")
+                            }
+                        })
                         val intent = Intent(this, ActivityOnline::class.java)
                         startActivity(intent)
                     } else {
