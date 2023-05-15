@@ -2,8 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
    <item
        android:id="@+id/addNewExam"
-       android:title="Tạo Đề Thi"
+       android:title="Tạo Đề Thi( File PDF)"
        android:icon="@drawable/ic_add_exam"
+       />
+   <item
+       android:id="@+id/myExam"
+       android:title="Đề Thi Của Tớ"
+       android:icon="@drawable/ic_my_exam"
        />
    <item
        android:id="@+id/chatBot"

@@ -110,6 +110,7 @@ class ActivityQuestions : AppCompatActivity() {
             var rsAgain = data.rawQuery("Select * from $table where maDe = '${ma_de}'", null)
 
             //  alert dialog
+            //  alert dialog
             val builder = AlertDialog.Builder(this)
             builder.setTitle("Bạn có chắc chắn muốn nộp bài!")
            builder.setNegativeButton("Hủy"){dialog,which->
@@ -171,7 +172,7 @@ class ActivityQuestions : AppCompatActivity() {
         binding.btnMore.setOnClickListener {
             // get data
             var rsAgain = data.rawQuery("Select * from $table where maDe = '${ma_de}'", null)
-            val listAns = arrayListOf<String>()
+            val listAns      = arrayListOf<String>()
             for (i in 0..rsAgain.count-1){
                 if (rsAgain.moveToPosition(i)){
                     listAns.add("Câu "+(i+1).toString()+" : "+rsAgain.getString(9))

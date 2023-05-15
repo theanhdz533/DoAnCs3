@@ -21,6 +21,7 @@ class ActivityChatbot : AppCompatActivity() {
         binding = ActivityChatbotBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.btnSearch.setOnClickListener {
+            binding.txtResult.setText("Loading.......")
             val question = binding.edtEnterQuestions.text.toString()
             getResponse(question){ response->
                 runOnUiThread{
@@ -34,7 +35,7 @@ class ActivityChatbot : AppCompatActivity() {
 
 
     fun getResponse(question: String, callback: (String) -> Unit){
-        val apiKey = "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"
+        val apiKey = "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"
         val url = "https://api.openai.com/v1/engines/text-davinci-003/completions"
 
         val requestBody="""
