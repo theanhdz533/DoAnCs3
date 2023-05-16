@@ -31,6 +31,7 @@ import com.example.conquertheexam.online.model.DataAdapterExam
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
@@ -47,6 +48,7 @@ class ActivityOnline : AppCompatActivity() {
     private val PICK_PDF_REQUEST = 1
     private var selectedPdfUri: Uri? = null
     lateinit var list : MutableList<DataAdapterExam>
+
 
     private lateinit var binding: ActivityOnlineBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -179,8 +181,8 @@ class ActivityOnline : AppCompatActivity() {
                     val time = document.getLong("time")
                     val creator = document.getString("creator")
                     val password = document.getString("password")
-                    val dataScore = document.get("scores")
-                    Log.e("dataScore", dataScore.toString())
+
+
                     val nameClient = currentUser.email
 
                     id = document.id
@@ -195,51 +197,68 @@ class ActivityOnline : AppCompatActivity() {
                     )
                     val adapter = CustomAdapterListDataExam(list, object : EventClickInterFace {
                         override fun OnClickItem(pos: Int) {
-                            var checkPass: Boolean = false
-                            // create dialog
-                            if (dataScore.toString().contains(nameClient.toString())) {
-                                val str = dataScore.toString()
-                                val parts =
-                                    str.split(",") // Tách chuỗi str thành các phần tử dựa trên dấu phẩy ","
-                                var point: String = ""
-                                for (part in parts) {
-                                    if (part.contains(nameClient.toString())) {
-                                        val index = part.indexOf('=')
-                                        point = part.substring(index + 1, index + 4)
-                                        Log.e("data point", point.toString())
+                            val docRef = db.collection("exams").document(list[pos].id.toString())
+                            docRef.get()
+                                .addOnSuccessListener { document ->
+                                    if (document != null && document.exists()) {
+                                        var dataScore = ""
+                                        val data = document.data
+                                         dataScore += data?.getValue("scores")
+                                        Log.e("dataScore", dataScore.toString())
+                                        if (dataScore.toString().contains(nameClient.toString())) {
+                                            val str = dataScore.toString()
+                                            val parts =
+                                                str.split(",") // Tách chuỗi str thành các phần tử dựa trên dấu phẩy ","
+                                            var point: String = ""
+                                            for (part in parts) {
+                                                if (part.contains(nameClient.toString())) {
+                                                    val index = part.indexOf('=')
+                                                    point = part.substring(index + 1, index + 4)
+                                                    Log.e("data point", point.toString())
+                                                }
+                                            }
+                                            val builder = AlertDialog.Builder(this@ActivityOnline)
+                                            builder.setTitle("Bạn đã làm bài thi này!")
+                                            builder.setMessage("Điểm của bạn là: $point")
+                                            val dialog = builder.create()
+                                            dialog.show()
+                                        } else {
+                                            val builder = AlertDialog.Builder(this@ActivityOnline)
+                                            builder.setTitle("Nhập mật khẩu của phòng thi")
+                                            val input = EditText(this@ActivityOnline)
+                                            builder.setView(input)
+                                            builder.setPositiveButton("Xác Nhận") { dialog, which ->
+                                                val textInput = input.text.toString()
+                                                if (textInput == list[pos].password) {
+                                                    val intent = Intent(
+                                                        this@ActivityOnline,
+                                                        ActivityQuestionOnline::class.java
+                                                    )
+                                                    intent.putExtra("id", list[pos].id)
+                                                    startActivity(intent)
+                                                } else {
+                                                    Toast.makeText(
+                                                        this@ActivityOnline,
+                                                        "Mật khẩu không chính xác!",
+                                                        Toast.LENGTH_SHORT
+                                                    ).show()
+                                                }
+
+                                            }
+                                            val dialog = builder.create()
+                                            dialog.show()
+                                        }
+
+                                    } else {
+
                                     }
                                 }
-                                val builder = AlertDialog.Builder(this@ActivityOnline)
-                                builder.setTitle("Bạn đã làm bài thi này!")
-                                builder.setMessage("Điểm của bạn là: $point")
-                                val dialog = builder.create()
-                                dialog.show()
-                            } else {
-                                val builder = AlertDialog.Builder(this@ActivityOnline)
-                                builder.setTitle("Nhập mật khẩu của phòng thi")
-                                val input = EditText(this@ActivityOnline)
-                                builder.setView(input)
-                                builder.setPositiveButton("Xác Nhận") { dialog, which ->
-                                    val textInput = input.text.toString()
-                                    if (textInput == list[pos].password) {
-                                        val intent = Intent(
-                                            this@ActivityOnline,
-                                            ActivityQuestionOnline::class.java
-                                        )
-                                        intent.putExtra("id", list[pos].id)
-                                        startActivity(intent)
-                                    } else {
-                                        Toast.makeText(
-                                            this@ActivityOnline,
-                                            "Mật khẩu không chính xác!",
-                                            Toast.LENGTH_SHORT
-                                        ).show()
-                                    }
+                                .addOnFailureListener { exception ->
 
                                 }
-                                val dialog = builder.create()
-                                dialog.show()
-                            }
+
+                            // create dialog
+
 
                         }
                     })
@@ -283,51 +302,68 @@ class ActivityOnline : AppCompatActivity() {
                         id = document.id
                         val adapter = CustomAdapterListDataExam(result, object : EventClickInterFace {
                             override fun OnClickItem(pos: Int) {
-                                var checkPass: Boolean = false
-                                // create dialog
-                                if (dataScore.toString().contains(nameClient.toString())) {
-                                    val str = dataScore.toString()
-                                    val parts =
-                                        str.split(",") // Tách chuỗi str thành các phần tử dựa trên dấu phẩy ","
-                                    var point: String = ""
-                                    for (part in parts) {
-                                        if (part.contains(nameClient.toString())) {
-                                            val index = part.indexOf('=')
-                                            point = part.substring(index + 1, index + 4)
-                                            Log.e("data point", point.toString())
+                                val docRef = db.collection("exams").document(list[pos].id.toString())
+                                docRef.get()
+                                    .addOnSuccessListener { document ->
+                                        if (document != null && document.exists()) {
+                                            var dataScore = ""
+                                            val data = document.data
+                                            dataScore += data?.getValue("scores")
+                                            Log.e("dataScore", dataScore.toString())
+                                            if (dataScore.toString().contains(nameClient.toString())) {
+                                                val str = dataScore.toString()
+                                                val parts =
+                                                    str.split(",") // Tách chuỗi str thành các phần tử dựa trên dấu phẩy ","
+                                                var point: String = ""
+                                                for (part in parts) {
+                                                    if (part.contains(nameClient.toString())) {
+                                                        val index = part.indexOf('=')
+                                                        point = part.substring(index + 1, index + 4)
+                                                        Log.e("data point", point.toString())
+                                                    }
+                                                }
+                                                val builder = AlertDialog.Builder(this@ActivityOnline)
+                                                builder.setTitle("Bạn đã làm bài thi này!")
+                                                builder.setMessage("Điểm của bạn là: $point")
+                                                val dialog = builder.create()
+                                                dialog.show()
+                                            } else {
+                                                val builder = AlertDialog.Builder(this@ActivityOnline)
+                                                builder.setTitle("Nhập mật khẩu của phòng thi")
+                                                val input = EditText(this@ActivityOnline)
+                                                builder.setView(input)
+                                                builder.setPositiveButton("Xác Nhận") { dialog, which ->
+                                                    val textInput = input.text.toString()
+                                                    if (textInput == list[pos].password) {
+                                                        val intent = Intent(
+                                                            this@ActivityOnline,
+                                                            ActivityQuestionOnline::class.java
+                                                        )
+                                                        intent.putExtra("id", list[pos].id)
+                                                        startActivity(intent)
+                                                    } else {
+                                                        Toast.makeText(
+                                                            this@ActivityOnline,
+                                                            "Mật khẩu không chính xác!",
+                                                            Toast.LENGTH_SHORT
+                                                        ).show()
+                                                    }
+
+                                                }
+                                                val dialog = builder.create()
+                                                dialog.show()
+                                            }
+
+                                        } else {
+
                                         }
                                     }
-                                    val builder = AlertDialog.Builder(this@ActivityOnline)
-                                    builder.setTitle("Bạn đã làm bài thi này!")
-                                    builder.setMessage("Điểm của bạn là: $point")
-                                    val dialog = builder.create()
-                                    dialog.show()
-                                } else {
-                                    val builder = AlertDialog.Builder(this@ActivityOnline)
-                                    builder.setTitle("Nhập mật khẩu của phòng thi")
-                                    val input = EditText(this@ActivityOnline)
-                                    builder.setView(input)
-                                    builder.setPositiveButton("Xác Nhận") { dialog, which ->
-                                        val textInput = input.text.toString()
-                                        if (textInput == list[pos].password) {
-                                            val intent = Intent(
-                                                this@ActivityOnline,
-                                                ActivityQuestionOnline::class.java
-                                            )
-                                            intent.putExtra("id", list[pos].id)
-                                            startActivity(intent)
-                                        } else {
-                                            Toast.makeText(
-                                                this@ActivityOnline,
-                                                "Mật khẩu không chính xác!",
-                                                Toast.LENGTH_SHORT
-                                            ).show()
-                                        }
+                                    .addOnFailureListener { exception ->
 
                                     }
-                                    val dialog = builder.create()
-                                    dialog.show()
-                                }
+
+                                // create dialog
+
 
                             }
                         })
